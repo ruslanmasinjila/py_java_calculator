@@ -12,8 +12,6 @@ class Controller():
     
     def __init__(self):
 
-
-##############################################################################
         # Local Host for TCP Communications
         self.HOST = '127.0.0.1'
 
@@ -54,17 +52,15 @@ class Controller():
                         print("Java GUI closed unexpectedly...")
                         break
                     # Process the data here
-                    self.processDataFromJavaGUI()
-                    
-                    
+                    response = str(eval(self.dataFromJavaGUI))+"\n"
+
                     
                     if not data:
                         break
                     
-                    conn.send(b"Hello from Python\n")
+                    conn.send(response.encode())
 
-    def processDataFromJavaGUI(self):
-        print("From Java GUI: " + self.dataFromJavaGUI)
+
         
 
 
