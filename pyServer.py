@@ -1,6 +1,9 @@
 ################################ SYSTEM IMPORTS ################################
 import socket
 from threading import Thread
+import os
+import time
+import subprocess
 
 
 ################################ CUSTOM IMPORTS ################################
@@ -21,6 +24,9 @@ class Controller():
 
         # Data  From Java GUI (string)
         self.dataFromJavaGUI = ""
+        
+        # Location for Java GUI launcher   
+        self.GUI = os.path.join(os.getcwd(),"JAVA_GUI\dist\JAVA_GUI.jar")
 
 
 
@@ -32,6 +38,9 @@ class Controller():
 
         # Launch Python Server
         Thread(target = self.launchServer).start()
+        
+        time.sleep(5)
+        subprocess.Popen(['java', '-jar', self.GUI], stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         
 
 
@@ -52,18 +61,21 @@ class Controller():
                         print("Java GUI closed unexpectedly...")
                         break
                     # Process the data here
-                    response = str(eval(self.dataFromJavaGUI))+"\n"
+                    try:
+                        response = str(eval(self.dataFromJavaGUI))+"\n"
+                        conn.send(response.encode())
+                    except:
+                        response = b"incorrect_input\n"
+                        conn.send(response)
 
                     
                     if not data:
                         break
                     
-                    conn.send(response.encode())
+                    
 
 
         
-
-
 if __name__ == "__main__":
 
     controller = Controller()

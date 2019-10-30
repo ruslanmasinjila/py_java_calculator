@@ -24,10 +24,9 @@ public class Client {
     private final int port = 65431;
 
     InetAddress address;
-    OutputStream os;
-    OutputStreamWriter osw;
-    BufferedWriter bw;
-    private BufferedReader in;
+    
+    String result = "";
+
 
     public Client() {
 
@@ -64,8 +63,8 @@ public class Client {
             BufferedReader br = new BufferedReader(isr);
             
             
-            String message = br.readLine();
-            System.out.println("Message received from the server : " +message);
+            result = br.readLine();
+            System.out.println("Message received from the server : " +result);
 
         } catch (Exception exception) {
             exception.printStackTrace();
