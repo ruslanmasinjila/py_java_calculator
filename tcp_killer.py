@@ -12,9 +12,9 @@ class TCPKiller():
         pass
     
     def KillPorts(self):
-        toJavaGUIPort = 65432
+
         fromJavaGUIPort = 65431
-        allPorts = [toJavaGUIPort, fromJavaGUIPort]
+        allPorts = [fromJavaGUIPort]
         
         for proc in process_iter():
             for conns in proc.connections(kind='inet'):
@@ -25,7 +25,7 @@ class TCPKiller():
                         except:
                             pass
                         continue 
-        time.sleep(5)
+        time.sleep(1)
         print("Ports killed successfully")
                     
 if __name__ == "__main__":

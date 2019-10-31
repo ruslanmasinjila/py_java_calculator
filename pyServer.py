@@ -2,8 +2,6 @@
 import socket
 from threading import Thread
 import os
-import time
-import subprocess
 
 
 ################################ CUSTOM IMPORTS ################################
@@ -25,10 +23,6 @@ class Controller():
         # Data  From Java GUI (string)
         self.dataFromJavaGUI = ""
         
-        # Location for Java GUI launcher   
-        self.GUI = os.path.join(os.getcwd(),"JAVA_GUI\dist\JAVA_GUI.jar")
-
-
 
     def launchThreads(self):
         
@@ -39,11 +33,7 @@ class Controller():
         # Launch Python Server
         Thread(target = self.launchServer).start()
         
-        time.sleep(5)
-        subprocess.Popen(['java', '-jar', self.GUI], stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         
-
-
 
     def launchServer(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
